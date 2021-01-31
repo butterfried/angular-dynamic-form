@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Column } from 'src/model/column';
 import { Item } from 'src/model/item';
 import { ItemService } from 'src/services/item.service';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-root',
@@ -83,7 +83,10 @@ export class AppComponent {
         })
         // remove opened column
         let deletedColumnIndex = this.columns.findIndex( column => column.item.sid == deletingItemSid);
-        this.columns = this.columns.slice(0, deletedColumnIndex);
+        console.log(deletedColumnIndex);
+        if ( deletedColumnIndex != -1 ) {
+          this.columns = this.columns.slice(0, deletedColumnIndex);
+        }
         column.isLoading = false;
       },
       error => {
@@ -125,5 +128,15 @@ export class AppComponent {
                         event.previousIndex,
                         event.currentIndex);
     }
+  }
+
+  saveItem(message:string, item:Item){
+    item.message = message;
+    this.itemService.updateItem(item).subscribe(
+      response => {
+      },
+      error => {
+        console.log(error);
+      });
   }
 }

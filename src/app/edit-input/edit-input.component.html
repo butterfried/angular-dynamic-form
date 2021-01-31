@@ -1,0 +1,13 @@
+<div *ngIf='!editMode' class='cell'>
+    {{ data }}
+    <span class="material-icons" (click)='onEdit($event)'>
+        create
+    </span>
+</div>
+<input 
+*ngIf='editMode' 
+(focusout)="onFocusOut()" 
+(keydown.enter)='onEnter($event)' 
+[(ngModel)]='data' class='cellInput'
+appAutofocus type='string' 
+(click)='onInputClick($event)'>

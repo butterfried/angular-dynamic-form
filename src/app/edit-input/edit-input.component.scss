@@ -1,0 +1,15 @@
+$lightGray: #c8c8c8;
+
+.cell {
+  border: 2px solid transparent;
+  display: inline-block;
+
+  :hover {
+    cursor: pointer;
+    border: 2px dashed $lightGray;
+  }
+}
+
+.cellInput {
+  border: 2px solid transparent;
+}
