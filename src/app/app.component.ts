@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Column } from 'src/model/column';
 import { Item } from 'src/model/item';
 import { ItemService } from 'src/services/item.service';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-root',
@@ -113,5 +114,16 @@ export class AppComponent {
         console.log(error);
         column.isLoading = false;
       });
+  }
+
+  drop(event: CdkDragDrop<Item[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+    }
   }
 }
